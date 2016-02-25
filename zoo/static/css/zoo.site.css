@@ -1,0 +1,120 @@
+body{
+    margin:0;
+    padding:0;
+    background-color:#36465d;
+    font-family: Georgia, "Times New Roman", "Microsoft YaHei", "微软雅黑", STXihei, "华文细黑", serif;
+}
+
+textarea{
+    resize: none;
+}
+
+.content-center-block{
+    text-align: center;
+}
+
+.nologin-bg{
+    margin-top:0;
+}
+.logined-bg{
+    margin-top:0;
+}
+
+.list-item{
+
+}
+
+.zoo-panel{
+    text-align:center;
+}
+.zoo-panel .zoo-panel-header{
+    text-align:center;
+    color:#ffffff;
+    margin-bottom:28px;
+}
+.zoo-panel .zoo-panel-footer{
+    margin-top:28px;
+}
+.zoo-panel .zoo-panel-body{
+    text-algin:center;
+}
+
+.zoo-panel-body .form-group{
+    margin:0;
+}
+.zoo-panel-body .form-group .form-control{
+    height:45px;
+    border-bottom:1px solid #e3e3e3;
+}
+.zoo-panel-body .form-group input{
+    font-size:17px;
+    border-radius:2px;
+}
+
+.setting-panel .setting-group{
+    width: 100%;
+    padding:15px 10px;
+    border-bottom: 1px solid #e5e5e5;
+    vertical-align:middle;
+}
+.setting-panel .setting-group label{
+    text-align: center;
+    display:block;
+    padding: 0 20px;
+}
+.accordion-content{
+    display: none;
+}
+.accordion-trigger{
+    margin-left: 20px;
+}
+
+.ams{
+    display: inline-block;
+    padding: 8px;
+    color: #337AB7;
+    font-size: 12px;
+    margin-left:20px;
+}
+/*header*/
+/*message-box*/
+#message-box-toggle{
+    cursor: pointer;
+}
+#message-box{
+    position:absolute;
+    right:0px;
+    background-color: #fff;
+    margin-top:2px;
+    padding:10px;
+    display:none;
+}
+.user-message-item{
+
+}
+
+/* homepage */
+.hp-banner{
+    color:#eee;
+}
+
+
+/* group */
+/* group header */
+#group-header{
+    width:100%;
+    background: #fff url(/static/assets/icon/group_header_bg.png);
+    border-bottom:1px solid #555;
+    text-align:center;
+    padding:10px;
+}
+
+#group-header img{
+    width:100px;
+    height:100px;
+}
+
+#group-header h3{
+    margin-top:10px;
+}
+

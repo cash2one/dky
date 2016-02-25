@@ -1,0 +1,16 @@
+{% from "macros.html" import menu_link with context %}
+<div class="menu">
+    <div class="menu-header">
+
+    </div>
+    <div class="menu-body">
+        <ul class="list-group">
+            {{ menu_link('user.setting_profile', '个人设置', desc='账户等设置项目', icon='fa fa-cogs', class_='list-group-item') }}
+            {{ menu_link('user.setting_appearance', '外观设置', icon='fa fa-eye', class_='list-group-item') }}
+            {{ menu_link('user.setting_notice', '通知设置', icon='fa fa-bullhorn', class_='list-group-item') }}
+        </ul>
+    </div>
+    <div class="menu-footer">
+
+    </div>
+</div>

@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 content-center-block">
+            <div class="hp-banner">
+                <img class="img-circle" src="{{ render_user_avatar(user,90,90) }}">
+                <div class="hp-user">
+                     <h3>{{ user.username }}</h3>
+                    {% if current_user.id != user.id %}
+                        {% if not current_user.is_following(user) %}
+                         <button  class="btn btn-default abcs" data-url="{{ url_for('user.follow',user_id=user.id) }}" data-userid="{{ user.id }}">关注</button>
+                        {% else %}
+                        <button  class="btn btn-default abcs" data-url="{{ url_for('user.unfollow',user_id=user.id) }}" data-userid="{{ user.id }}">取消关注</button>
+                        {% endif %}
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/ajax.js') }}"></script>
+{% endblock %}

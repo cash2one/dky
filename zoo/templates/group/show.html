@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div id="group-header">
+                <img src="{{ render_group_logo(group) }}">
+                <div>
+                    <h3>{{ group.name }}</h3>
+                    <h5>{{ group.description }}</h5>
+                </div>
+                {% if not group in current_user.groups: %}
+                <div id="group-header-options">
+                    <button class="btn btn-primary">加入小组</button>
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/typeahead.bundle.min.js') }}"></script>
+{% endblock %}

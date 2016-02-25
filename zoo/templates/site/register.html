@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="container-fluid media-bg">
+        <div class="row">
+            <div class="zoo-panel col-md-4 col-md-offset-4">
+                <div class="zoo-panel-header">
+                    <h2>登陆到-{{ config['SITE_NAME'] }}</h2>
+                </div>
+                <div class="zoo-panel-body">
+                    <form id="registerForm" class="form-horizontal" action="{{ url_for('site.register') }}" method="POST">
+                        <div class="form-group">
+                            <div class="col-md-10 col-md-offset-1">
+                                {{ form.email(placeholder=form.email.label.text, class_='form-control')}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-10 col-md-offset-1">
+                                {{ form.password(placeholder=form.password.label.text, class_='form-control')}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-10 col-md-offset-1">
+                                {{ form.username(placeholder=form.username.label.text, class_='form-control')}}
+                            </div>
+                        </div>
+                        {{ form.csrf_token }}
+                    </form>
+                </div>
+                <div class="zoo-panel-footer">
+                    <div class="row">
+                        <button class="btn btn-lg btn-primary col-md-8 col-md-offset-2 submitBtn" type="submit" data-form="#registerForm">注册</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

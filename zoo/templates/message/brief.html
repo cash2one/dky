@@ -1,0 +1,12 @@
+<div>
+    {% if current_user.new_followers > 0 %}
+        <div class="follow_brief_div">
+            <a href="{{ url_for('user.follow', user_id=current_user.id) }}">有<strong>{{ current_user.new_followers }}</strong>个人关注了你</a>
+        </div>
+    {% endif %}
+</div>
+{% if current_user.new_followers > 0 %}
+<script type="text/javascript">
+    $("#message-box-toggle").css("color", "#0769AD");
+</script>
+{% endif %}

@@ -1,0 +1,14 @@
+{% macro nav_link(endpoint, text, icon='', class_='', active=False) %}
+<li class="{% if request.endpoint.endswith(endpoint) or active %}active {% endif %}{% if class_ %}{{ class_ }}{% endif %}">
+    <a href="{{ url_for(endpoint) }}">
+        {% if icon %}<i class="{{ icon }}"></i>{% endif %}{{text}}
+    </a>
+</li>
+{% endmacro %}
+
+{% macro menu_link(endpoint, text, icon='', desc='', class_='', active=False) %}
+<a href="{{ url_for(endpoint) }}" class="{% if request.endpoint.endswith(endpoint) or active %}active {% endif %}{% if class_ %}{{ class_ }}{% endif %}">
+    {% if icon %}<i class="{{ icon }}"></i>{% endif %}{{text}}
+    {% if desc %} <br> <small>{{ desc }}</small> {% endif %}
+</a>
+{% endmacro %}

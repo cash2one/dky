@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-8">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation"><a href="#follower" aria-controls="follower" role="tab" data-toggle="tab">关注我的人</a></li>
+                <li role="presentation"><a href="#reply" aria-controls="reply" role="tab" data-toggle="tab">我的话题回复</a></li>
+                <li role="presentation"><a href="#atme" aria-controls="atme" role="tab" data-toggle="tab">@我的内容</a></li>
+                <li role="presentation"><a href="#like" aria-controls="like" role="tab" data-toggle="tab">我得到的赞</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="follower">
+
+                    <ul class="list-group">
+                        {% for message in follower_messages %}
+                        <li class="list-group-item">
+                            <a href="{{ url_for('user.homepage', user_id=message.from_user.id) }}">
+                            <img src="{{ render_user_avatar(message.from_user, width=50, height=50) }}" class="img-circle">
+                            <h5>{{ message.from_user.username }}</h5>
+                            </a>
+                            关注了你
+                        </li>
+                        {% endfor %}
+                    </ul>
+
+                </div>
+                <div role="tabpanel" class="tab-pane" id="reply"><h1>reply</h1></div>
+                <div role="tabpanel" class="tab-pane" id="atme"><h1>atme</h1></div>
+                <div role="tabpanel" class="tab-pane" id="like"><h1>like</h1></div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

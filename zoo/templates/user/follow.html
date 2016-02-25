@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+{% block body %}
+<div class="row">
+        <div class="col-md-8 col-md-offset-2 content-center-block">
+            <div class="hp-banner">
+                <img class="img-circle" src="{{ render_user_avatar(user,90,90) }}">
+                <div class="hp-user">
+                     <h3>{{ user.username }}</h3>
+                    {% if current_user.id != user.id %}
+                        {% if not current_user.is_following(user) %}
+                         <button  class="btn btn-default abcs" data-url="{{ url_for('user.follow',user_id=user.id) }}" data-userid="{{ user.id }}">关注</button>
+                        {% else %}
+                        <button  class="btn btn-default abcs" data-url="{{ url_for('user.unfollow',user_id=user.id) }}" data-userid="{{ user.id }}">取消关注</button>
+                        {% endif %}
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            <div>
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation"><a href="#follow" aria-controls="follow" role="tab" data-toggle="tab">被{{ followers | length }}人关注</a></li>
+                    <li role="presentation"><a href="#followed" aria-controls="followed" role="tab" data-toggle="tab">关注{{ followed | length }}人</a></li>
+                  </ul>
+                <!-- Tab panes -->
+                  <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="follow">
+                        {% if followers | length > 0 %}
+                        <ul class="list-group">
+                            {% for follower in followers %}
+                                <li class="list-group-item">
+                                    <img src="{{ render_user_avatar(follower, 50, 50) }}" class="img-circle" style="width:50px;height:50px;">
+                                    <span>{{ follower.username }}</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        {% else %}
+                        <h3>暂时没有被任何人关注</h3>
+                        {% endif %}
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="followed">
+
+                    </div>
+                  </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
