@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block body %}
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-8">
             <div id="group-header">
                 <img src="{{ render_group_logo(group) }}">
                 <div>
@@ -10,12 +10,45 @@
                 </div>
                 {% if not group in current_user.groups: %}
                 <div id="group-header-options">
-                    <button class="btn btn-primary">加入小组</button>
+                    <a href="{{ url_for('group.join', group_id=group.id) }}" class="btn btn-primary">加入小组</a>
+                </div>
+                {% else %}
+                <div id="group-header-options">
+                    <button class="btn btn-primary">发布活动</button>
                 </div>
                 {% endif %}
             </div>
 
         </div>
+
+        <div class="col-md-4">
+            <div class="group-info">
+                <h4>社团管理员</h4>
+                {% for admin in group.admins %}
+                <div class="group-info-item">
+                    <a class="group-info-link">
+                        <img src="{{ render_user_avatar(admin) }}">
+                        <span>{{ admin.username }}</span>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="group-info">
+                <h4>社团成员</h4>
+
+                <div class="group-info-item">
+                    {% for member in group.members.all() %}
+                    <a class="group-info-link">
+                        <img src="{{ render_user_avatar(member) }}">
+                    </a>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+        </div>
+
+
     </div>
 {% endblock %}
 {% block javascripts %}

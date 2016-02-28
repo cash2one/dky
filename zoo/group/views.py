@@ -37,21 +37,13 @@ def new():
         group.members.append(current_user)
         group.set_logo_auto()
         group.save()
-        flash("小组创建成功")
+        flash("社团创建成功")
     else:
         for field,errors in form.errors.items():
             for error in errors:
                 flash(u"信息填写有误 '%s'项 - %s" % (getattr(form, field).label.text, error), "error")
 
     return redirect(url_for('user.group_dashboard'))
-
-@group.route("/join/<int:group_id>", methods=["POST"])
-@login_required
-def join(group_id):
-    group = Group.query.get(group_id)
-    if not group:
-        abort(404)
-
 
 
 @group.route("/set/logo/<int:group_id>", methods=["POST"])
@@ -76,7 +68,7 @@ def set_logo(group_id):
             flash("图标图片只能是jpg/jpeg/png/gif格式，且大小不能超过2M")
     else:
         abort(404)
-    flash("小组图标上传成功", "success")
+    flash("社团图标上传成功", "success")
     return redirect(url_for('group.admin', group_id=group_id))
 
 
@@ -88,8 +80,20 @@ def set_description(group_id):
         abort(404)
     group.description = request.form["description"]
     group.save()
-    flash("小组介绍修改成功", "success")
+    flash("社团介绍修改成功", "success")
     return redirect(url_for('group.admin', group_id=group_id))
+
+@group.route("/join/<int:group_id>", methods=['GET'])
+@login_required
+def join(group_id):
+    group = Group.query.get(group_id)
+    if not group:
+        abort(404)
+    group.members.append(current_user)
+    group.save()
+    flash("成功加入社团("+ group.name +")")
+    return redirect(url_for('group.show',group_id=group_id))
+
 
 """  AJAX  """
 @group.route("/set/private/<int:group_id>", methods=['POST'])

@@ -26,7 +26,7 @@
                           <div class="media-body">
                             <div class="media-heading"><span><strong>{{ group.name }}</strong></span></h5>
                                 <span>
-                                    小组成员（{{ group.members.all() | length }}）
+                                    社团成员（{{ group.members.all() | length }}）
                                 </span>
                             </div>
                             <p class="pull-left">
@@ -39,7 +39,7 @@
                                 </span>
                             </p>
                               <div class="pull-right">
-                                    <a href="{{ url_for('group.show', group_id=group.id) }}" class="btn btn-default">进入小组</a>
+                                    <a href="{{ url_for('group.show', group_id=group.id) }}" class="btn btn-default">进入社团</a>
                                     <a href="{{ url_for('group.admin', group_id=group.id) }}" class="btn btn-primary">管理</a>
                               </div>
                           </div>
@@ -49,11 +49,11 @@
                         <div class="content-center-block">
                             <div class="accordion-wrap">
                                 <h5></h5>
-                                <button  class="btn btn-primary accordion-trigger">创建小组</button>
+                                <button  class="btn btn-primary accordion-trigger">创建社团</button>
                             </div>
                             <div class="accordion-content content-center-block">
                                 <div class="page-header">
-                                    <h3>创建小组 <small>物以类聚，人以组分 </small></h3>
+                                    <h3>创建社团 <small></small></h3>
                                 </div>
                                 <form id="new-group-form2" class="form-horizontal" action="{{ url_for('group.new') }}" method="POST">
                                     <div class="form-group">
@@ -73,7 +73,7 @@
                                     </div>
                                     {{ form.csrf_token }}
                                 </form>
-                                <button class="btn btn-primary col-md-4 col-md-offset-2 submitBtn" data-form="#new-group-form">创建小组</button>
+                                <button class="btn btn-primary col-md-4 col-md-offset-2 submitBtn" data-form="#new-group-form">创建社团</button>
                                 <button class="btn col-md-4 accordion-dismiss">取消</button>
                             </div>
                         </div>
@@ -83,12 +83,12 @@
                     <div class="col-md-8 col-md-offset-2">
                         <div class="content-center-block">
                             <div class="accordion-wrap">
-                                <h3>你还没有创建过小组<br>现在就创建一个小组吧</h3>
-                                <button  class="btn btn-primary accordion-trigger">创建小组</button>
+                                <h3>你还没有创建过社团<br>现在就创建一个社团吧</h3>
+                                <button  class="btn btn-primary accordion-trigger">创建社团</button>
                             </div>
                             <div class="accordion-content content-center-block">
                                 <div class="page-header">
-                                    <h3>创建小组 <small>物以类聚，人以组分 </small></h3>
+                                    <h3>创建社团 <small></small></h3>
                                 </div>
                                 <form id="new-group-form" class="form-horizontal" action="{{ url_for('group.new') }}" method="POST">
                                     <div class="form-group">
@@ -108,7 +108,7 @@
                                     </div>
                                     {{ form.csrf_token }}
                                 </form>
-                                <button class="btn btn-primary col-md-4 col-md-offset-2 submitBtn" data-form="#new-group-form">创建小组</button>
+                                <button class="btn btn-primary col-md-4 col-md-offset-2 submitBtn" data-form="#new-group-form">创建社团</button>
                                 <button class="btn col-md-4 accordion-dismiss">取消</button>
                             </div>
                         </div>

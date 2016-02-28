@@ -13,7 +13,7 @@
                   <div class="panel-body">
                     <div class="setting-panel col-md-12">
                                  <div class="setting-group pull-left">
-                                     <label class="col-md-4">是否为私有小组</label>
+                                     <label class="col-md-4">是否为私有社团</label>
                                      <div class="setting-wrap col-md-8">
                                          <input type="checkbox" class="ai" name="private" {% if group.private %}checked{% endif %}
                                                 data-amsid="#private-ams" data-url="{{ url_for('group.set_private',group_id=group.id) }}" data-on-text="是" data-off-text="否">
@@ -21,7 +21,7 @@
                                      </div>
                                 </div>
                                 <div class="setting-group pull-left">
-                                    <label class="col-md-4" style="line-height:70px;">小组图标</label>
+                                    <label class="col-md-4" style="line-height:70px;">社团图标</label>
                                     <div class="setting-wrap col-md-8">
                                         <img class="img-rounded" src="{{ render_group_logo(group) }}" style="height:70px; width:70px;">
                                         <button class="btn btn-primary fake-file" data-file="#logo-file" style="margin-left:20px;"><i class="fa fa-camera-retro"></i></button>
@@ -31,7 +31,7 @@
                                     </div>
                                 </div>
                                 <div class="setting-group pull-left">
-                                    <label class="col-md-4">小组介绍</label>
+                                    <label class="col-md-4">社团介绍</label>
                                     <div class="accordion-wrap col-md-8">
                                         <p class="col-md-9">
                                             {{ group.description }}
