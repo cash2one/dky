@@ -27,7 +27,7 @@
                 {% for admin in group.admins %}
                 <div class="group-info-item">
                     <a class="group-info-link">
-                        <img src="{{ render_user_avatar(admin) }}">
+                        <img class="img-circle" src="{{ render_user_avatar(admin) }}">
                         <span>{{ admin.username }}</span>
                     </a>
                 </div>
@@ -39,7 +39,7 @@
                 <div class="group-info-item">
                     {% for member in group.members.all() %}
                     <a class="group-info-link">
-                        <img src="{{ render_user_avatar(member) }}">
+                        <img class="img-circle" src="{{ render_user_avatar(member) }}">
                     </a>
                     {% endfor %}
                 </div>

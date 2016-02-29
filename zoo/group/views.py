@@ -2,7 +2,7 @@ from flask import Blueprint,redirect,request,flash,render_template,url_for,abort
 from flask_login import login_required,current_user
 from zoo.utils.imghelper import allowed_file,upload_file,delete_file
 from zoo.configs.default import DefaultConfig
-
+from zoo.user.models import User
 from zoo.group.models import Group
 from zoo.group.forms import NewGroupForm
 
@@ -105,4 +105,57 @@ def set_private(group_id):
     group.private = request.form["private"]
     group.save()
     return jsonify(data=group.private, msg="设置成功")
+
+@group.route("/admin/m2a/<int:group_id>/<int:user_id>", methods=['POST'])
+@login_required
+def m2a(group_id, user_id):
+    group = Group.query.get(group_id)
+    if not group:
+        abort(404)
+    user = User.query.get(user_id)
+    if not user:
+        abort(404)
+    if not current_user in group.admins and user in group.members.all():
+        abort(401)
+    if user in group.admins:
+        abort(403)
+    group.admins.append(user)
+    group.save()
+    flash("已成功添加 "+user.username+" 为管理员")
+    return jsonify(msg="success")
+
+@group.route("/admin/a2m/<int:group_id>/<int:user_id>", methods=['POST'])
+@login_required
+def a2m(group_id, user_id):
+    group = Group.query.get(group_id)
+    if not group:
+        abort(404)
+    user = User.query.get(user_id)
+    if not user:
+        abort(404)
+    if not user in group.admins:
+        abort(403)
+    if not current_user.id == group.creator_id:
+        abort(403)
+    group.admins.remove(user)
+    group.save()
+    flash("管理员删除成功")
+    return jsonify(msg="success")
+
+@group.route("/admin/dm/<int:group_id>/<int:user_id>", methods=['POST'])
+@login_required
+def dm(group_id, user_id):
+    group = Group.query.get(group_id)
+    if not group:
+        abort(404)
+    user = User.query.get(user_id)
+    if not user:
+        abort(404)
+    if not current_user in group.admins:
+        abort(403)
+    group.members.remove(user)
+    group.save()
+    flash("小组成员删除成功")
+    return jsonify(msg="success")
+
 

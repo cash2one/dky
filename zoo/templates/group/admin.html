@@ -7,7 +7,7 @@
 
 {% block body %}
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-6">
                 <div class="panel panel-default">
                   <div class="panel-heading content-center-block"><h1>{{ group.name }}</h1></div>
                   <div class="panel-body">
@@ -53,6 +53,41 @@
                             </div>
                   </div>
                 </div>
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading content-center-block"><h3>社团成员管理</h3></div>
+                        <div class="panel-body">
+                            <h4>社团管理员</h4>
+                            <ul class="list-group">
+                                {% for admin in group.admins %}
+                                <li class="list-group-item">
+                                    <img class="img-circle" style="height:50px; width:50px;" src="{{ render_user_avatar(admin) }}">
+                                    <span>{{ admin.username }}</span>
+                                    {% if not admin.id == group.creator_id and current_user.id == group.creator_id %}
+                                         <button class="ga-a2m-btn btn btn-danger" data-groupid="{{group.id}}" data-userid="{{admin.id}}" style="display:inline-block; float: right;">取消管理员身份</button>
+                                    {% endif %}
+
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            <h4>社团成员</h4>
+                            <ul class="list-group">
+                                {% for member in group.members.all() %}
+                                {% if not member in group.admins %}
+                                <li class="list-group-item" style="line-height:60px; vertical-align:middle;">
+                                    <img class="img-circle" style="height:50px; width:50px;" src="{{ render_user_avatar(member) }}">
+                                    <span>{{ member.username }}</span>
+
+                                    <button class="ga-m2a-btn btn btn-primary" data-groupid="{{ group.id }}" data-userid="{{ member.id }}" style="display: inline-block; float: right;">提升为管理员</button>
+                                    <button class="ga-d-m-btn btn btn-danger" data-groupid="{{ group.id }}" data-userid="{{ member.id }}" style="display: inline-block; float: right;">移除社团</button>
+
+                                </li>
+                                {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
     </div>
 {% endblock %}
@@ -60,4 +95,5 @@
 {{ super() }}
 <script src="{{ url_for('static', filename='js/bootstrap-switch.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/ajax.js') }}"></script>
+<script src="{{ url_for('static', filename='js/group-admin.js') }}"></script>
 {% endblock %}
