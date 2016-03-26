@@ -2,7 +2,7 @@ class DefaultConfig(object):
     DEBUG = True
     SECRET_KEY = "youcannotseeme"
 
-    SQLALCHEMY_DATABASE_URI = "postgresql://dkyadmin:123456@localhost/dky"
+    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:123456@localhost/dky"
     SQLALCHEMY_ECHO = True
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 

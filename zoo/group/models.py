@@ -22,7 +22,7 @@ class Group(db.Model):
     set_logo = db.Column(db.Boolean, default=False, nullable=False)
 
 
-    creator_id = db.Column(db.Integer, db.ForeignKey("users.id",ondelete="SET NULL"), nullable=False)
+    creator_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     members = db.relationship("User", secondary=groups_members, backref=db.backref("groups", lazy='dynamic'), lazy='dynamic')
     admins = db.relationship("User", secondary=groups_admin, backref=db.backref("admin_groups", lazy='dynamic'), lazy='joined')
 

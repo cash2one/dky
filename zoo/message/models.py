@@ -10,14 +10,16 @@ class Message(db.Model):
 
     __tablename__ = "messages"
 
+    id = db.Column(db.Integer, primary_key=True)
+
     created_at = db.Column(db.DateTime, default=datetime.datetime.now(), nullable=False)
 
-    from_user_id = db.Column(db.Integer, db.ForeignKey("users.id"), primary_key=True)
-    to_user_id = db.Column(db.Integer, db.ForeignKey("users.id"), primary_key=True)
+    from_user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    to_user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
-    ref = db.Column(db.Integer(), nullable=True, primary_key=True)
+    ref = db.Column(db.Integer(), nullable=True)
 
-    type = db.Column(db.SmallInteger, nullable=False, primary_key=True)
+    type = db.Column(db.SmallInteger, nullable=False)
 
     subject = db.Column(db.String(255))
 
