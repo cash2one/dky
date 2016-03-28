@@ -5,7 +5,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.ext.hybrid import hybrid_property
 from zoo.mmrelation.mm_relations import user_followers
 
-from zoo.message.models import Message
 
 import os,random,datetime
 
@@ -35,8 +34,7 @@ class User(db.Model, UserMixin):
 
     owned_groups = db.relationship("Group", backref="creator", lazy='joined')
 
-    messages = db.relationship("Message", backref="to_user", lazy="dynamic",primaryjoin="Message.to_user_id == User.id")
-    sendmessages = db.relationship("Message", backref="from_user", lazy="dynamic", primaryjoin="Message.from_user_id == User.id")
+    rant = db.Column(db.Integer(), default=0)
 
     @hybrid_property
     def password(self):

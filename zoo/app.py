@@ -5,7 +5,8 @@ from zoo.extensions import db, login_manager
 from zoo.site.views import site
 from zoo.user.views import user
 from zoo.group.views import group
-from zoo.message.views import message
+from zoo.activity.views import activity
+from zoo.reply.views import reply
 
 from zoo.user.models import User
 
@@ -28,8 +29,8 @@ def configure_blueprints(app):
     app.register_blueprint(site, url_prefix=app.config["SITE_URL_PREFIX"])
     app.register_blueprint(user, url_prefix=app.config["USER_URL_PREFIX"])
     app.register_blueprint(group, url_prefix=app.config["GROUP_URL_PREFIX"])
-    app.register_blueprint(message, url_prefix=app.config["MESSAGE_URL_PREFIX"])
-
+    app.register_blueprint(activity, url_prefix=app.config["ACTIVITY_URL_PREFIX"])
+    app.register_blueprint(reply, url_prefix=app.config["REPLY_URL_PREFIX"])
 
 def configure_extensions(app):
 

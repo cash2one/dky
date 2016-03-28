@@ -26,5 +26,7 @@ class DefaultConfig(object):
     SITE_URL_PREFIX = ""
     USER_URL_PREFIX = "/user"
     GROUP_URL_PREFIX = "/group"
-    MESSAGE_URL_PREFIX = "/message"
+    ACTIVITY_URL_PREFIX = "/activity"
+    REPLY_URL_PREFIX = "/reply"
+
 
