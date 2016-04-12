@@ -23,6 +23,8 @@ class User(db.Model, UserMixin):
     #description = db.Column(db.String(255),nullable=True)
     _password = db.Column('password', db.String(160), nullable=False)
 
+    role = db.Column(db.Integer(),default=3, nullable=False)
+
     new_followers = db.Column(db.Integer(), default=0, nullable=False)
     last_check_follower = db.Column(db.DateTime, default=datetime.datetime.now(), nullable=False)
     followed = db.relationship('User',
@@ -61,8 +63,8 @@ class User(db.Model, UserMixin):
 
 
     @classmethod
-    def authenticate(cls, login, password):
-        user = cls.query.filter(db.or_(User.username == login, User.email == login)).first()
+    def authenticate(cls, login, password, role):
+        user = cls.query.filter(db.or_(User.username == login, User.email == login), User.role == role).first()
         if user:
             authenticated = user.check_password(password)
         else:

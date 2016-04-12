@@ -3,6 +3,7 @@ from .forms import UserRegisterForm, UserLoginForm
 from flask_login import login_user, logout_user, login_required
 from zoo.user.models import User
 from zoo.group.models import Group
+from zoo.configs.default import DefaultConfig
 
 
 site = Blueprint("site", __name__)
@@ -35,15 +36,25 @@ def login():
     form = UserLoginForm(request.form)
     if request.method == 'POST':
         if form.validate_on_submit():
-            print(form.remember_me)
-            user, authenticated = User.authenticate(form.login.data, form.password.data)
-            if user and authenticated:
-                login_user(user, remember=form.remember_me.data)
-                flash('登录成功，'+ user.username +"欢迎回来！", 'info')
-                return redirect(url_for('site.index'))
-            else:
-                error = '登录失败，邮箱或密码错误。'
-                return render_template("site/login.html", error=error, form=form)
+            if form.role.data == 2 or form.role.data == 3:
+                user, authenticated = User.authenticate(form.login.data, form.password.data, form.role.data)
+                if user and authenticated:
+                    login_user(user, remember=True)
+                    flash('登录成功，'+ user.username +"欢迎回来！", 'info')
+                    return redirect(url_for('site.index'))
+                else:
+                    error = '登录失败，邮箱/用户名或密码错误。'
+                    return render_template("site/login.html", error=error, form=form)
+            elif form.role.data == 1:
+                user, authenticated = User.authenticate(form.login.data, form.password.data, form.role.data)
+                if user and authenticated:
+                    login_user(user, remember=True)
+                    flash('登录成功，'+ user.username +"欢迎回来！", 'info')
+                    return redirect(url_for('admin.index'))
+                else:
+                    error = '管理员登录失败，邮箱/用户名或密码错误。'
+                    return render_template("site/login.html", error=error, form=form)
+
     else:
         return render_template("site/login.html", form=form)
 

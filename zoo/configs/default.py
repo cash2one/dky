@@ -2,6 +2,10 @@ class DefaultConfig(object):
     DEBUG = True
     SECRET_KEY = "youcannotseeme"
 
+    ADMIN_USERNAME = "admin"
+    ADMIN_PASSWORD = "123456"
+    ADMIN_EMAIL = "admin@163.com"
+
     SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:123456@localhost/dky"
     SQLALCHEMY_ECHO = True
     SQLALCHEMY_TRACK_MODIFICATIONS = True
@@ -28,5 +32,6 @@ class DefaultConfig(object):
     GROUP_URL_PREFIX = "/group"
     ACTIVITY_URL_PREFIX = "/activity"
     REPLY_URL_PREFIX = "/reply"
+
 
 

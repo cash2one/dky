@@ -23,7 +23,16 @@ def create_app(config=None):
     configure_extensions(app)
     configure_context_processors(app)
 
+    #检查admin是否存在，不存在则根据配置文件创建admin
+    with app.app_context():
+        admin = User.query.filter(User.username == app.config.get("ADMIN_USERNAME")).first()
+        print(admin)
+        if not admin:
+            admin = User(email=app.config.get("ADMIN_EMAIL"), password=app.config.get("ADMIN_PASSWORD"), username=app.config.get("ADMIN_USERNAME"), role=1)
+            admin.set_avatar_auto()
+            admin.save()
     return app
+
 
 def configure_blueprints(app):
     app.register_blueprint(site, url_prefix=app.config["SITE_URL_PREFIX"])
