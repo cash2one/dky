@@ -5,12 +5,7 @@ groups_members = db.Table(
     'groups_members',
     db.Column('user_id',db.Integer(),db.ForeignKey('users.id')),
     db.Column('group_id',db.Integer(),db.ForeignKey('groups.id')),
-)
-
-groups_admin = db.Table(
-    'groups_admin',
-    db.Column('admin_id',db.Integer(),db.ForeignKey('users.id')),
-    db.Column('group_id',db.Integer(),db.ForeignKey('groups.id')),
+    db.Column('active', db.Boolean, default=False, nullable=False)
 )
 
 user_followers = db.Table(

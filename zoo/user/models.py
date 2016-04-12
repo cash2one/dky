@@ -34,7 +34,7 @@ class User(db.Model, UserMixin):
                                 backref=db.backref('followers', lazy='dynamic'),
                                 lazy='dynamic')
 
-    owned_groups = db.relationship("Group", backref="creator", lazy='joined')
+    owned_group = db.relationship("Group", backref=db.backref('creator', lazy='joined'), lazy='joined')
 
     rant = db.Column(db.Integer(), default=0)
 
@@ -64,7 +64,7 @@ class User(db.Model, UserMixin):
 
     @classmethod
     def authenticate(cls, login, password, role):
-        user = cls.query.filter(db.or_(User.username == login, User.email == login), User.role == role).first()
+        user = cls.query.filter(db.or_(User.username == login, User.email == login)).first()
         if user:
             authenticated = user.check_password(password)
         else:

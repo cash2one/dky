@@ -13,7 +13,7 @@ class Group(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.datetime.now(), nullable=False)
     updated_at = db.Column(db.DateTime, onupdate=datetime.datetime.now(), nullable=True)
 
-    private = db.Column(db.Boolean, default=False, nullable=False)
+    active = db.Column(db.Boolean, default=False, nullable=False)
 
     name = db.Column(db.String(40), unique=True, nullable=False)
     description = db.Column(db.String(200), nullable=True)
@@ -21,10 +21,8 @@ class Group(db.Model):
     #banner = db.Column(db.String(200), nullable=False)
     set_logo = db.Column(db.Boolean, default=False, nullable=False)
 
-
-    creator_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     members = db.relationship("User", secondary=groups_members, backref=db.backref("groups", lazy='dynamic'), lazy='dynamic')
-    admins = db.relationship("User", secondary=groups_admin, backref=db.backref("admin_groups", lazy='dynamic'), lazy='joined')
+
 
 
 
