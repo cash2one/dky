@@ -17,56 +17,38 @@
 
 </head>
 <body>
-{% if current_user.is_active  %}
+
 <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="{{ url_for('site.index') }}">{{ config['SITE_NAME'] }}</a>
+                <a class="navbar-brand" href="{{ url_for('site.index') }}">{{ config['SITE_NAME'] }} - 后台管理</a>
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">所有社团 </a></li>
-                    <li><a href="#">最新活动</a></li>
+                    <li class="active"><a href="#">小组管理</a></li>
+                    <li><a href="#">成员管理</a></li>
                 </ul>
 
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li style="position: relative;">
-
-                        </li>
-                        <li class="dropdown">
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding:5px 10px;">
-                              <img src="{{ render_user_avatar(current_user) }}" class="img-circle" style="width:40px;height:40px;margin:0 10px;">{{ current_user.username }}
-                              <span class="caret"></span>
-                          </a>
-                          <ul class="dropdown-menu">
-                              <li><a href="/user/{{ current_user.id }}"><i class="fa fa-home"></i>我的主页</a></li>
-                            {{ nav_link('user.group_dashboard', '我的小组', icon='fa fa-group') }}
-                              {{ nav_link('user.setting_profile', '个人设置', icon='fa fa-gear') }}
+                <ul class="nav navbar-nav navbar-right">
+                    <li style="position: relative;"></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding:5px 10px;">
+                            <img src="{{ render_user_avatar(current_user) }}" class="img-circle" style="width:40px;height:40px;margin:0 10px;">{{ current_user.username }}
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            {{ nav_link('user.setting_profile', '个人设置', icon='fa fa-gear') }}
                             <li role="separator" class="divider"></li>
                             {{ nav_link('site.logout', '退出登陆', icon='fa fa-sign-out') }}
-                          </ul>
-                        </li>
-                    </ul>
-                </div>
+                        </ul>
+                    </li>
+                </ul>
             </div>
          </div>
     </nav>
-<div class="container logined-bg">
-{% else %}
- <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">{{ config['SITE_NAME'] }}</a>
-            </div>
-            <ul class="nav navbar-nav navbar-right">
-                {{ nav_link('site.login', '登陆') }}
-                {{ nav_link('site.register', '注册') }}
-            </ul>
-        </div>
-    </nav>
-    <div class="container-fluid nologin-bg">
-{% endif %}
+
+<div class="container admin-bg">
+
  <div class="row">
         <div id="flash-div" class="col-md-6 col-md-offset-3">
             {% with messages = get_flashed_messages(with_categories=true) %}
@@ -82,6 +64,7 @@
 
         </div>
     </div>
+
 
 {% block body %}{% endblock %}
 

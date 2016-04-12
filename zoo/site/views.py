@@ -33,7 +33,7 @@ def register():
 
 @site.route("/login", methods=['GET', 'POST'])
 def login():
-    form = UserLoginForm(request.form)
+    form = UserLoginForm()
     if request.method == 'POST':
         if form.validate_on_submit():
             if form.role.data == 2 or form.role.data == 3:
@@ -50,11 +50,13 @@ def login():
                 if user and authenticated:
                     login_user(user, remember=True)
                     flash('登录成功，'+ user.username +"欢迎回来！", 'info')
-                    return redirect(url_for('admin.index'))
+                    return render_template("admin/index.html")
                 else:
                     error = '管理员登录失败，邮箱/用户名或密码错误。'
                     return render_template("site/login.html", error=error, form=form)
-
+        else:
+            print(form.errors)
+            return redirect(url_for('site.login'))
     else:
         return render_template("site/login.html", form=form)
 
