@@ -32,6 +32,7 @@ class DefaultConfig(object):
     GROUP_URL_PREFIX = "/group"
     ACTIVITY_URL_PREFIX = "/activity"
     REPLY_URL_PREFIX = "/reply"
+    ADMIN_URL_PREFIX = "/admin"
 
 
 

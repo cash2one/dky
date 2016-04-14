@@ -68,7 +68,7 @@ def login():
                     if user.role == 1:
                         login_user(user, remember=True)
                         flash('管理员登陆成功', 'info')
-                        return render_template("admin/index.html")
+                        return redirect(url_for('admin.admin_verify'))
                     else:
                         flash('你不是管理员', 'info')
                         return redirect(url_for('site.login'))
