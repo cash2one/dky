@@ -32,18 +32,17 @@ def new():
     form = NewGroupForm()
 
     if form.validate_on_submit():
-        group = Group(name=form.name.data, description=form.description.data, creator_id=current_user.id)
-        group.admins.append(current_user)
+        group = Group(name=form.name.data, description=form.description.data, creator=current_user)
         group.members.append(current_user)
         group.set_logo_auto()
         group.save()
-        flash("社团创建成功")
+        flash("社团创建成功，等待管理员审核")
     else:
         for field,errors in form.errors.items():
             for error in errors:
                 flash(u"信息填写有误 '%s'项 - %s" % (getattr(form, field).label.text, error), "error")
 
-    return redirect(url_for('user.group_dashboard'))
+    return redirect(url_for('site.index'))
 
 
 @group.route("/set/logo/<int:group_id>", methods=["POST"])

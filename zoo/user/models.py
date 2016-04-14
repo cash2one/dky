@@ -34,7 +34,6 @@ class User(db.Model, UserMixin):
                                 backref=db.backref('followers', lazy='dynamic'),
                                 lazy='dynamic')
 
-    owned_group = db.relationship("Group", backref=db.backref('creator', lazy='joined'), lazy='joined')
 
     rant = db.Column(db.Integer(), default=0)
 

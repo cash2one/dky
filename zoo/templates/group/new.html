@@ -4,12 +4,13 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
               <div class="panel-heading">
-                <h3 class="panel-title">你还没有建立过社团</h3>
+                <h3 class="panel-title">目前不满足社长身份条件</h3>
               </div>
               <div class="panel-body">
                 <div class="content-center-block">
                     {% if current_user.owned_group and not current_user.owned_group.active %}
-                            <h3>你创建的社团还没通过管理员审核，暂时还不能使用社长身份登陆</h3>
+                            <h3>你创建的社团还没通过管理员审核<br>暂时还不能使用社长身份登陆</h3>
+                            <a href="{{ url_for('site.index') }}" class="btn btn-primary">返回主页</a>
                     {% else %}
                             <div class="accordion-wrap">
                                 <h3>你还没有创建过社团<br>现在就创建一个社团吧</h3>

@@ -1,5 +1,5 @@
 from zoo.extensions import db
-from zoo.mmrelation.mm_relations import groups_admin, groups_members
+from zoo.mmrelation.mm_relations import groups_members
 from zoo.configs.default import DefaultConfig
 
 import os, datetime, random
@@ -20,6 +20,9 @@ class Group(db.Model):
     logo = db.Column(db.String(200), nullable=False)
     #banner = db.Column(db.String(200), nullable=False)
     set_logo = db.Column(db.Boolean, default=False, nullable=False)
+
+    creator_id = db.Column(db.Integer(), db.ForeignKey('users.id'))
+    creator = db.relationship("User", backref=db.backref('owned_group', lazy='joined'), lazy='joined')
 
     members = db.relationship("User", secondary=groups_members, backref=db.backref("groups", lazy='dynamic'), lazy='dynamic')
 

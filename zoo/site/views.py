@@ -3,7 +3,7 @@ from .forms import UserRegisterForm, UserLoginForm
 from flask_login import login_user, logout_user, login_required
 from zoo.user.models import User
 from zoo.group.models import Group
-from zoo.configs.default import DefaultConfig
+from zoo.group.forms import NewGroupForm
 
 
 site = Blueprint("site", __name__)
@@ -53,7 +53,9 @@ def login():
                         flash('社长身份登录成功，'+ user.username +"欢迎回来！", 'info')
                         return redirect(url_for('site.index'))
                     elif user.role == 3:
-                        return render_template("group/new.html")
+                        login_user(user, remember=True)
+                        form = NewGroupForm()
+                        return render_template("group/new.html", form=form)
                     else:
                         flash('作为管理员，您不能以社长身份登陆', 'info')
                         return redirect(url_for('site.login'))
