@@ -4,8 +4,8 @@
         <div class="col-md-2">
             <ul class="list-group">
                 <div class="list-group">
-                  <a href="{{ url_for('admin.admin_verify') }}" class="list-group-item active">新社团审核</a>
-                  <a href="{{ url_for('admin.group_manage') }}" class="list-group-item">社团管理</a>
+                  <a href="{{ url_for('admin.admin_verify') }}" class="list-group-item">新社团审核</a>
+                  <a href="{{ url_for('admin.group_manage') }}" class="list-group-item active">社团管理</a>
                   <a href="#" class="list-group-item">活动管理</a>
                   <a href="#" class="list-group-item">用户管理</a>
                 </div>
@@ -20,14 +20,14 @@
                         <th>社团描述</th>
                         <th>创建者</th>
                         <th>创建时间</th>
-                        <th>审核操作</th>
+                        <th>管理</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% if groups | length <= 0  %}
                     <tr>
                         <th>
-                            暂时没有新创建的社团需要审核
+                            没有社团
                         </th>
                     </tr>
 
@@ -40,8 +40,7 @@
                                 <td>{{ group.creator.username }}</td>
                                 <td>{{ group.created_at }}</td>
                                 <td>
-                                    <a class="btn btn-primary" href="{{ url_for('admin.group_agree', group_id=group.id) }}" role="button">通过审核</a>
-                                    <a class="btn btn-default" href="{{ url_for('admin.group_deny',group_id=group.id) }}" role="button">否决</a>
+                                    
                                 </td>
                             </tr>
                          {% endfor %}

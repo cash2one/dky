@@ -1,13 +1,12 @@
-{% extends "admin/layout.html" %}
+{% extends "president/layout.html" %}
 {% block body %}
     <div class="row">
         <div class="col-md-2">
             <ul class="list-group">
                 <div class="list-group">
-                  <a href="{{ url_for('admin.admin_verify') }}" class="list-group-item active">新社团审核</a>
-                  <a href="{{ url_for('admin.group_manage') }}" class="list-group-item">社团管理</a>
+                  <a href="{{ url_for('president.member_verify') }}" class="list-group-item active">新社员审核</a>
+                  <a href="{{ url_for('admin.group_manage') }}" class="list-group-item">社员管理</a>
                   <a href="#" class="list-group-item">活动管理</a>
-                  <a href="#" class="list-group-item">用户管理</a>
                 </div>
             </ul>
         </div>

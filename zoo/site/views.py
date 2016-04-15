@@ -1,6 +1,6 @@
 from flask import Blueprint,flash,request,render_template,redirect,url_for
 from .forms import UserRegisterForm, UserLoginForm
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required,current_user
 from zoo.user.models import User
 from zoo.group.models import Group
 from zoo.group.forms import NewGroupForm
@@ -12,9 +12,12 @@ site = Blueprint("site", __name__)
 @site.route("/")
 @login_required
 def index():
-    users = User.query.limit(15).all();
-    groups = Group.query.limit(15).all();
-    return render_template("site/index.html", users=users, groups=groups)
+    if current_user.role == 1:
+        return redirect(url_for('admin.admin_verify'))
+    else:
+        users = User.query.limit(15).all();
+        groups = Group.query.limit(15).all();
+        return render_template("site/index.html", users=users, groups=groups)
 
 
 @site.route("/register", methods=['GET','POST'])

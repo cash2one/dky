@@ -10,3 +10,11 @@ def admin_required(func):
             abort(403)
         return func(*args, **kwargs)
     return decorated_view
+
+def president_required(func):
+    @wraps(func)
+    def decorated_view(*args, **kwargs):
+        if not current_user.role == 2:
+            abort(403)
+        return func(*args, **kwargs)
+    return decorated_view
