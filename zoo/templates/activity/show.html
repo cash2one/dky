@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div class="page-header">
+                  <h3><img class="img-rounded" src="{{ render_group_logo(activity.group) }}" style="height:50px; width:50px;">&nbsp;&nbsp;&nbsp;{{activity.title}}</h3>
+                </div>
+                <div class="setting-panel">
+                    <div class="setting-group pull-left">
+                        <label class="col-md-4">举办社团</label>
+                        <p><a href="{{ url_for('group.show', group_id=activity.group.id) }}">{{ activity.group.name }}</a> </p>
+                    </div>
+                    <div class="setting-group pull-left">
+                        <label class="col-md-4">活动地点</label>
+                        <p>{{ activity.address }} </p>
+                    </div>
+                    <div class="setting-group pull-left">
+                        <label class="col-md-4">活动时间</label>
+                        <p>{{ activity.start_time }} 至 {{ activity.end_time }} </p>
+                    </div>
+                    <div class="setting-group pull-left">
+                        <label class="col-md-4">活动详情</label>
+                        <p>{{ activity.content }} </p>
+                    </div>
+                    <div class="setting-group pull-left">
+                        <label class="col-md-4">已参与社员</label>
+                        {% for user in activity.users %}
+                            <img class="img-circle" src="{{ render_user_avatar(user) }}" style="height:50px; width:50px;">
+                        {% endfor %}
+                    </div>
+                </div>
+              </div>
+
+                <div class="panel-footer" style="height:50px;">
+
+                        {% if not current_user in activity.users %}
+                            <a href="{{ url_for('activity.join', activity_id=activity.id) }}" class="btn btn-primary pull-right">参加活动</a>
+                        {% else %}
+                            <span class="label label-primary">你已经参加该活动</span>
+                        {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/typeahead.bundle.min.js') }}"></script>
+{% endblock %}

@@ -2,37 +2,48 @@
 {% block body %}
     <div class="row">
         <div class="col-md-8">
-            <div id="group-header">
+            <div id="group-header" style="margin-bottom:25px;">
                 <img src="{{ render_group_logo(group) }}">
                 <div>
                     <h3>{{ group.name }}</h3>
                     <h5>{{ group.description }}</h5>
                 </div>
                 {% if not group in current_user.groups: %}
-                <div id="group-header-options">
-                    <a href="{{ url_for('group.join', group_id=group.id) }}" class="btn btn-primary">加入小组</a>
-                </div>
+                    {% if current_user in group.unverify_members %}
+                        <div id="group-header-options">
+                            <span class="label label-primary">已提交入社申请，等待社长审核</span></h3>
+                        </div>
+                    {% else %}
+                        <div id="group-header-options">
+                            <a href="{{ url_for('group.join', group_id=group.id) }}" class="btn btn-primary">加入小组</a>
+                        </div>
+                    {% endif %}
                 {% else %}
                 <div id="group-header-options">
-                    <button class="btn btn-primary">发布活动</button>
+                    {% if not group.creator == current_user %}
+                    <a href="{{ url_for('group.leave', group_id=group.id) }}" class="btn btn-primary">退出小组</a>
+                    {% endif %}
                 </div>
                 {% endif %}
             </div>
+            {% for activity in group.activities  %}
+                <div class="panel panel-default">
+                        <div class="panel-body">
+                            <img class="img-rounded" src="{{ render_group_logo(activity.group) }}" style="height:40px; width:40px;">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span style="font-weight: bold">{{ activity.group.name }}</span>  发布了活动  <span style="font-weight: bold">“{{ activity.title }}”</span>
+                        </div>
+                        <div class="panel-footer" style="height:50px;">
+                            活动起止时间: {{ activity.start_time }} - {{ activity.end_time }}
+                            <a href="{{ url_for('activity.show', activity_id=activity.id) }}" class="btn btn-primary pull-right">查看活动</a>
+                        </div>
+                    </div>
+            {% endfor %}
 
         </div>
 
         <div class="col-md-4">
-            <div class="group-info">
-                <h4>社团管理员</h4>
-                {% for admin in group.admins %}
-                <div class="group-info-item">
-                    <a class="group-info-link">
-                        <img class="img-circle" src="{{ render_user_avatar(admin) }}">
-                        <span>{{ admin.username }}</span>
-                    </a>
-                </div>
-                {% endfor %}
-            </div>
+
             <div class="group-info">
                 <h4>社团成员</h4>
 

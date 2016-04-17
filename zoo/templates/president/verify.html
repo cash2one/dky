@@ -4,9 +4,10 @@
         <div class="col-md-2">
             <ul class="list-group">
                 <div class="list-group">
-                  <a href="{{ url_for('president.member_verify') }}" class="list-group-item active">新社员审核</a>
-                  <a href="{{ url_for('admin.group_manage') }}" class="list-group-item">社员管理</a>
-                  <a href="#" class="list-group-item">活动管理</a>
+                    <a href="{{ url_for('president.info') }}" class="list-group-item">社团基本信息</a>
+                  <a href="{{ url_for('president.verify') }}" class="list-group-item active">新社员审核</a>
+                  <a href="{{ url_for('president.member_manage') }}" class="list-group-item">社员管理</a>
+                  <a href="{{ url_for('president.activities') }}" class="list-group-item">活动管理</a>
                 </div>
             </ul>
         </div>
@@ -14,37 +15,24 @@
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>社团名称</th>
-                        <th>社团描述</th>
-                        <th>创建者</th>
-                        <th>创建时间</th>
+                        <th>用户头像</th>
+                        <th>用户名</th>
                         <th>审核操作</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% if groups | length <= 0  %}
-                    <tr>
-                        <th>
-                            暂时没有新创建的社团需要审核
-                        </th>
-                    </tr>
 
-                    {% else %}
-                         {% for group in groups %}
+                         {% for member in members %}
                             <tr>
-                                <th>{{ group.id }}</th>
-                                <td>{{ group.name }}</td>
-                                <td>{{ group.description }}</td>
-                                <td>{{ group.creator.username }}</td>
-                                <td>{{ group.created_at }}</td>
+                                <th><img src="{{ render_user_avatar(member) }}" class="img-rounded" style="width:40px;height:40px;"></th>
+                                <td>{{ member.username }}</td>
                                 <td>
-                                    <a class="btn btn-primary" href="{{ url_for('admin.group_agree', group_id=group.id) }}" role="button">通过审核</a>
-                                    <a class="btn btn-default" href="{{ url_for('admin.group_deny',group_id=group.id) }}" role="button">否决</a>
+                                    <a class="btn btn-primary" href="{{ url_for('president.join_agree', user_id=member.id) }}" role="button">同意</a>
+                                    <a class="btn btn-default" href="{{ url_for('president.join_deny', user_id=member.id) }}" role="button">否决</a>
                                 </td>
                             </tr>
                          {% endfor %}
-                    {% endif %}
+
                 </tbody>
             </table>
         </div>

@@ -8,7 +8,7 @@ from zoo.group.views import group
 from zoo.activity.views import activity
 from zoo.reply.views import reply
 from zoo.admin.views import admin
-
+from zoo.president.views import president
 from zoo.user.models import User
 
 
@@ -38,6 +38,7 @@ def create_app(config=None):
 def configure_blueprints(app):
     app.register_blueprint(site, url_prefix=app.config["SITE_URL_PREFIX"])
     app.register_blueprint(admin, url_prefix=app.config["ADMIN_URL_PREFIX"])
+    app.register_blueprint(president, url_prefix=app.config["PRESIDENT_URL_PREFIX"])
     app.register_blueprint(user, url_prefix=app.config["USER_URL_PREFIX"])
     app.register_blueprint(group, url_prefix=app.config["GROUP_URL_PREFIX"])
     app.register_blueprint(activity, url_prefix=app.config["ACTIVITY_URL_PREFIX"])

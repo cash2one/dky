@@ -29,5 +29,10 @@
         $($(this).data("toggle")).toggle();
     })
 
+    $(".modal-btn").click(function(){
+        $($(this).data("modal")).modal('show');
+    })
+
+    $('.datetimepicker').datetimepicker();
 
  });

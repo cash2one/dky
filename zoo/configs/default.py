@@ -33,6 +33,7 @@ class DefaultConfig(object):
     ACTIVITY_URL_PREFIX = "/activity"
     REPLY_URL_PREFIX = "/reply"
     ADMIN_URL_PREFIX = "/admin"
+    PRESIDENT_URL_PREFIX = "/president"
 
 
 

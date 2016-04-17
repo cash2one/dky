@@ -68,7 +68,7 @@ def set_logo(group_id):
     else:
         abort(404)
     flash("社团图标上传成功", "success")
-    return redirect(url_for('group.admin', group_id=group_id))
+    return redirect(url_for('president.info'))
 
 
 @group.route("/set/description/<int:group_id>", methods=["POST"])
@@ -80,19 +80,30 @@ def set_description(group_id):
     group.description = request.form["description"]
     group.save()
     flash("社团介绍修改成功", "success")
-    return redirect(url_for('group.admin', group_id=group_id))
+    return redirect(url_for('president.info'))
 
 @group.route("/join/<int:group_id>", methods=['GET'])
 @login_required
 def join(group_id):
+
     group = Group.query.get(group_id)
     if not group:
         abort(404)
     group.members.append(current_user)
     group.save()
-    flash("成功加入社团("+ group.name +")")
+    flash("已申请加入("+ group.name +"),等待社长审核")
     return redirect(url_for('group.show',group_id=group_id))
 
+@group.route("/leave/<int:group_id>", methods=['GET'])
+@login_required
+def leave(group_id):
+    group = Group.query.get(group_id)
+    if not group:
+        abort(404)
+    group.members.remove(current_user)
+    group.save()
+    flash("已退出("+ group.name +")")
+    return redirect(url_for('group.show',group_id=group_id))
 
 """  AJAX  """
 @group.route("/set/private/<int:group_id>", methods=['POST'])

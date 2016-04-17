@@ -1,0 +1,46 @@
+{% extends "president/layout.html" %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-2">
+            <ul class="list-group">
+                <div class="list-group">
+                  <a href="{{ url_for('president.info') }}" class="list-group-item">社团基本信息</a>
+                  <a href="{{ url_for('president.verify') }}" class="list-group-item">新社员审核</a>
+                  <a href="{{ url_for('president.member_manage') }}" class="list-group-item">社员管理</a>
+                  <a href="{{ url_for('president.activities') }}" class="list-group-item active">活动管理</a>
+                </div>
+            </ul>
+        </div>
+        <div class="col-md-10">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>活动标题</th>
+                        <th>活动地点</th>
+                        <th>开始时间</th>
+                        <th>结束时间</th>
+                        <th>参与人数</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                         {% for activity in activities %}
+                            <tr>
+                                <td>{{ activity.title }}</td>
+                                <td>{{ activity.address }}</td>
+                                <td>{{ activity.start_time }}</td>
+                                <td>{{ activity.end_time }}</td>
+                                <td>{{ activity.count }}</td>
+                                <td>
+                                    <a class="btn btn-primary" href="#" role="button">删除活动</a>
+                                </td>
+                            </tr>
+                         {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

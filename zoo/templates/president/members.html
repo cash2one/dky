@@ -1,0 +1,44 @@
+{% extends "president/layout.html" %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-2">
+            <ul class="list-group">
+                <div class="list-group">
+                    <a href="{{ url_for('president.info') }}" class="list-group-item">社团基本信息</a>
+                  <a href="{{ url_for('president.verify') }}" class="list-group-item">新社员审核</a>
+                  <a href="{{ url_for('president.member_manage') }}" class="list-group-item active">社员管理</a>
+                  <a href="{{ url_for('president.activities') }}" class="list-group-item">活动管理</a>
+                </div>
+            </ul>
+        </div>
+        <div class="col-md-10">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>头像</th>
+                        <th>用户名</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                         {% for member in members %}
+                            <tr>
+                                <th><img src="{{ render_user_avatar(member) }}" class="img-rounded" style="width:40px;height:40px;"></th>
+                                <th>{{ member.username }}</th>
+
+
+                                <td>
+                                    {% if not member == current_user %}
+                                        <a class="btn btn-primary" href="{{ url_for('president.kickout',user_id=member.id) }}" role="button">移出社团</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                         {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

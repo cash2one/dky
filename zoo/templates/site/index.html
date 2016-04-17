@@ -1,18 +1,23 @@
 {% extends "layout.html" %}
 {% block body %}
     <div class="row">
-        <div class="col-md-6" style="color:#fff; height:500px; text-align: center; border:1px dashed #fff;">
-            <h1 style="margin-top:200px;">活动板块开发中</h1>
-        </div>
-        <div class="col-md-5 col-md-offset-1" style="color:#e5e5e5;">
-            <h4 style="">最新加入的成员</h4>
-            {% for user in users %}
-            <a style="margin:5px;" href="{{ url_for('user.homepage',user_id=user.id) }}"><img class="img-circle" src="{{ render_user_avatar(user) }}" style="width:50px; height:50px;"></a>
-            {% endfor %}
-            <h4 style="margin-top:30px;">最新创建的社团</h4>
-            {% for group in groups %}
-            <a style="margin:5px;" href="{{ url_for('group.show',group_id=group.id) }}"><img class="img-circle" src="{{ render_group_logo(group) }}" style="width:50px; height:50px;"></a>
-            {% endfor %}
+        <div class="col-md-12">
+            <div class="col-md-8 col-md-offset-2">
+                {% for activity in activities %}
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <img class="img-rounded" src="{{ render_group_logo(activity.group) }}" style="height:40px; width:40px;">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span style="font-weight: bold">{{ activity.group.name }}</span>  发布了活动  <span style="font-weight: bold">“{{ activity.title }}”</span>
+                        </div>
+                        <div class="panel-footer" style="height:50px;">
+                            活动起止时间: {{ activity.start_time }} - {{ activity.end_time }}
+                            <a href="{{ url_for('activity.show', activity_id=activity.id) }}" class="btn btn-primary pull-right">查看活动</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
         </div>
     </div>
 {% endblock %}

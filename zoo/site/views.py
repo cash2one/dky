@@ -2,6 +2,7 @@ from flask import Blueprint,flash,request,render_template,redirect,url_for
 from .forms import UserRegisterForm, UserLoginForm
 from flask_login import login_user, logout_user, login_required,current_user
 from zoo.user.models import User
+from zoo.activity.models import Activity
 from zoo.group.models import Group
 from zoo.group.forms import NewGroupForm
 
@@ -15,9 +16,18 @@ def index():
     if current_user.role == 1:
         return redirect(url_for('admin.admin_verify'))
     else:
-        users = User.query.limit(15).all();
-        groups = Group.query.limit(15).all();
-        return render_template("site/index.html", users=users, groups=groups)
+        activities = Activity.query.all()
+        return render_template("site/index.html", activities=activities)
+
+
+@site.route("/groups")
+@login_required
+def groups():
+    if current_user.role == 1:
+        return redirect(url_for('admin.admin_verify'))
+    else:
+        groups = Group.query.all()
+        return render_template("site/groups.html", groups=groups)
 
 
 @site.route("/register", methods=['GET','POST'])
@@ -53,8 +63,8 @@ def login():
                 if user and authenticated:
                     if user.role == 2:
                         login_user(user, remember=True)
-                        flash('社长身份登录成功，'+ user.username +"欢迎回来！", 'info')
-                        return redirect(url_for('site.index'))
+                        flash('社长登录成功，'+ user.username +"欢迎回来！", 'info')
+                        return redirect(url_for('president.verify'))
                     elif user.role == 3:
                         login_user(user, remember=True)
                         form = NewGroupForm()

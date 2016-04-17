@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-8 col-md-offset-2">
+                {% for group in groups %}
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <p><img class="img-rounded" src="{{ render_group_logo(group) }}" style="height:50px; width:50px;">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span style="font-weight: bold">{{ group.name }}</span>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span>社团成员:&nbsp;{{ group.members.all() | length }}</span>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span>社团活动:&nbsp;{{ group.activities.all() | length }}</span>
+                            </p>
+                            <p style="margin-left: 70px;">
+                                {{ group.description }}
+                            </p>
+
+                        </div>
+                        <div class="panel-footer">
+                            &nbsp;&nbsp;<img class="img-rounded" src="{{ render_user_avatar(group.creator) }}" style="height:30px; width:30px;">&nbsp;{{ group.creator.username }}(社长)
+                            <a href="{{ url_for('group.show',group_id=group.id) }}" class="btn btn-primary pull-right">查看社团</a>
+                        </div>
+
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
