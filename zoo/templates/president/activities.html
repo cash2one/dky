@@ -33,7 +33,8 @@
                                 <td>{{ activity.end_time }}</td>
                                 <td>{{ activity.count }}</td>
                                 <td>
-                                    <a class="btn btn-primary" href="#" role="button">删除活动</a>
+                                    <a class="btn btn-primary remote-modal-btn" data-url="{{url_for('activity.update',activity_id=activity.id)}}" data-modal="#activity_update_modal">修改</a>
+                                    <a class="btn btn-danger" href="{{ url_for('activity.delete', activity_id=activity.id) }}" role="button">删除</a>
                                 </td>
                             </tr>
                          {% endfor %}

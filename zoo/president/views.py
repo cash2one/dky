@@ -61,7 +61,7 @@ def new_activity():
     if start_time < datetime.datetime.now():
         flash("活动开始时间已经过期，活动发布失败", "error")
         return redirect(url_for("president.activities"))
-    if start_time >= end_time():
+    if start_time >= end_time:
         flash("活动结束时间小于活动开始时间，活动发布失败", "error")
         return redirect(url_for('president.activities'))
     count = int(request.form['count'])

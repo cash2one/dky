@@ -34,3 +34,14 @@ class Activity(db.Model):
         db.session.add(self)
         db.session.commit()
         return self
+
+    def delete(self):
+
+        db.session.delete(self)
+        db.session.commit()
+
+    def print_start_time(self):
+        return self.start_time.strftime('%Y-%m-%d %H:%M')
+
+    def print_end_time(self):
+        return self.end_time.strftime('%Y-%m-%d %H:%M')

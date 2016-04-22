@@ -32,7 +32,16 @@
     $(".modal-btn").click(function(){
         $($(this).data("modal")).modal('show');
     })
-
+    $(".remote-modal-btn").click(function(){
+        $this = $(this);
+        $("#remote-modal-container").load( $this.data("url"), function(){
+             $(".submitBtn").click(function(){
+                $($(this).data("form")).submit();
+             });
+            $('.datetimepicker').datetimepicker();
+            $("#remote-modal-container .modal").modal('show');
+        })
+    })
     $('.datetimepicker').datetimepicker();
 
  });

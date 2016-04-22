@@ -1,0 +1,42 @@
+<div id="activity-update-modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">修改活动</h4>
+      </div>
+      <div class="modal-body">
+            <form id="activity-update-form" action="{{ url_for('activity.update', activity_id=activity.id) }}" method="post">
+              <div class="form-group">
+                <label>活动标题</label>
+                <input type="text" class="form-control" value="{{ activity.title }}" name="title" >
+              </div>
+              <div class="form-group">
+                <label>活动地点</label>
+                <input type="text" class="form-control" value="{{ activity.address }}" name="address" placeholder="活动标题">
+              </div>
+              <div class="form-group">
+                <label>开始时间</label>
+                <input type="text" name="start-time" class="form-control datetimepicker" value="{{activity.print_start_time()}}" data-date-format="yyyy-mm-dd hh:ii">
+              </div>
+              <div class="form-group">
+                <label>结束时间</label>
+                <input type="text" name="end-time" class="form-control datetimepicker" value="{{ activity.print_end_time() }}" data-date-format="yyyy-mm-dd hh:ii">
+              </div>
+              <div class="form-group">
+                  <label>活动人数</label>
+                  <input type="text" name="count" class="form-control" value="{{ activity.count }}">
+              </div>
+              <div class="form-group">
+                <label>活动详情</label>
+                <textarea name="content" class="form-control" rows="6" style="resize:none">{{ activity.content }}</textarea>
+              </div>
+            </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary submitBtn" data-form="#activity-update-form">修改</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

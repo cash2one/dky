@@ -14,8 +14,8 @@ class Reply(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     user = db.relationship("User", backref=db.backref("replies", lazy='dynamic'), lazy='joined')
 
-    activity_id = db.Column(db.Integer, db.ForeignKey("activities.id"), nullable=False)
-    activity = db.relationship("Activity", backref=db.backref("replies", lazy='dynamic'), lazy='joined')
+    activity_id = db.Column(db.Integer, db.ForeignKey("activities.id",ondelete='CASCADE'), nullable=False)
+    activity = db.relationship("Activity", backref=db.backref("replies", lazy='dynamic',cascade="all, delete, delete-orphan", passive_deletes=True), lazy='joined')
 
 
     """ 创建小组 """
