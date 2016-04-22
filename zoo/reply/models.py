@@ -16,3 +16,10 @@ class Reply(db.Model):
 
     activity_id = db.Column(db.Integer, db.ForeignKey("activities.id"), nullable=False)
     activity = db.relationship("Activity", backref=db.backref("replies", lazy='dynamic'), lazy='joined')
+
+
+    """ 创建小组 """
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+        return self

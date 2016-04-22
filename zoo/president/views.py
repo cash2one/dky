@@ -58,6 +58,12 @@ def new_activity():
     address = request.form['address']
     start_time = datetime.datetime.strptime(request.form['start-time'], "%Y-%m-%d %H:%M")
     end_time = datetime.datetime.strptime(request.form['end-time'], "%Y-%m-%d %H:%M")
+    if start_time < datetime.datetime.now():
+        flash("活动开始时间已经过期，活动发布失败", "error")
+        return redirect(url_for("president.activities"))
+    if start_time >= end_time():
+        flash("活动结束时间小于活动开始时间，活动发布失败", "error")
+        return redirect(url_for('president.activities'))
     count = int(request.form['count'])
     content = request.form['content']
     activity = Activity(title=title, address=address, start_time=start_time, end_time=end_time,count=count,content=content)

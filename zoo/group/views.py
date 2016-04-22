@@ -53,7 +53,7 @@ def set_logo(group_id):
     if group:
         if file and allowed_file(file.filename):
             if group.set_logo:
-                delete_file(group.logo, DefaultConfig.LOCAL_GROUPLOGO_DIR_1)
+                #delete_file(group.logo, DefaultConfig.LOCAL_GROUPLOGO_DIR_1)
                 upload_file(file, DefaultConfig.LOCAL_GROUPLOGO_DIR_1)
                 group.logo = file.filename
                 group.save()
