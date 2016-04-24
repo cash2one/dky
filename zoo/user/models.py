@@ -55,7 +55,7 @@ class User(db.Model, UserMixin):
 
     """ 随机获得系统头像 """
     def set_avatar_auto(self):
-        files = [x for x in os.listdir(DefaultConfig.LOCAL_AVATAR_DIR) if os.path.isfile(x)]
+        files = [x for x in os.listdir(DefaultConfig.LOCAL_AVATAR_DIR) if os.path.isfile(os.path.join(DefaultConfig.LOCAL_AVATAR_DIR,x))]
         self.avatar = random.choice(files)
 
 
@@ -104,15 +104,15 @@ class User(db.Model, UserMixin):
     def is_following(self, user):
         return self.followed.filter(user_followers.c.followed_id == user.id).count() > 0
 
-    """ 获取用户所有消息 """
-    def get_messages(self):
-        messages = self.messages.all()
-        return messages
+   # """ 获取用户所有消息 """
+   # def get_messages(self):
+   #     messages = self.messages.all()
+   #     return messages
 
-    """ 获取未阅读消息分类片段(用于页头消息提醒显示) """
-    def get_brief_messages(self):
-        messages = self.messages.filter(Message.readed == False).all()
-        return messages
+   # """ 获取未阅读消息分类片段(用于页头消息提醒显示) """
+   # def get_brief_messages(self):
+   #     messages = self.messages.filter(Message.readed == False).all()
+   #     return messages
 
 
     """ 检查粉丝 """
