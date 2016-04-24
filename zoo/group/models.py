@@ -32,7 +32,7 @@ class Group(db.Model):
 
     """ 设置随机小组图标 """
     def set_logo_auto(self):
-        files = [x for x in os.listdir(DefaultConfig.LOCAL_GROUPLOGO_DIR)]
+        files = [x for x in os.listdir(DefaultConfig.LOCAL_GROUPLOGO_DIR) if os.path.isfile(x) ]
         self.logo = random.choice(files)
 
     """ 创建小组 """

@@ -2,8 +2,8 @@
 
 {% block body %}
     <div class="row">
-        <div class="col-md-10 col-md-offset-1 content-center-block">
-            <div class="hp-banner">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="hp-banner content-center-block">
                 <img class="img-circle" src="{{ render_user_avatar(user) }}" style="width:90px; height:90px;">
                 <div class="hp-user">
                      <h3>{{ user.username }}</h3>
@@ -16,12 +16,97 @@
                     {% endif %}
 
                 </div>
-
             </div>
 
+            <div class="col-md-8 col-md-offset-2" style="margin-top:20px;">
+            <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#owned" aria-controls="owned" role="tab" data-toggle="tab">我的小组</a></li>
+            <li role="presentation"><a href="#admined" aria-controls="admined" role="tab" data-toggle="tab">我参加的活动</a></li>
+            <li role="presentation"><a href="#joined" aria-controls="joined" role="tab" data-toggle="tab">我的评论</a></li>
+          </ul>
 
+          <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="owned">
+                        <div class="row">
+
+                        {% for group in user.groups %}
+                                 <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <p><img class="img-rounded" src="{{ render_group_logo(group) }}" style="height:50px; width:50px;">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <span style="font-weight: bold">{{ group.name }}</span>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <span>社团成员:&nbsp;{{ group.members.all() | length }}</span>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <span>社团活动:&nbsp;{{ group.activities.all() | length }}</span>
+                                        </p>
+                                        <p style="margin-left: 70px;">
+                                            {{ group.description }}
+                                        </p>
+
+                                    </div>
+                                    <div class="panel-footer">
+                                        &nbsp;&nbsp;<img class="img-rounded" src="{{ render_user_avatar(group.creator) }}" style="height:30px; width:30px;">&nbsp;{{ group.creator.username }}(社长)
+                                        <a href="{{ url_for('group.show',group_id=group.id) }}" class="btn btn-primary pull-right">查看社团</a>
+                                    </div>
+
+                                </div>
+                         {% endfor %}
+
+
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="admined">
+                        <div class="row">
+
+                        {% for activity in user.activities %}
+                             <div class="panel panel-default">
+                        <div class="panel-body">
+                            <img class="img-rounded" src="{{ render_group_logo(activity.group) }}" style="height:40px; width:40px;">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span style="font-weight: bold">{{ activity.group.name }}</span>  发布的活动  <span style="font-weight: bold">{{ activity.title }}</span>
+                        </div>
+                        <div class="panel-footer" style="height:50px;">
+                            活动起止时间: {{ activity.start_time }} - {{ activity.end_time }}
+                            <a href="{{ url_for('activity.show', activity_id=activity.id) }}" class="btn btn-primary pull-right">查看活动</a>
+                        </div>
+                    </div>
+                         {% endfor %}
+
+
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="joined">
+                        <div class="row">
+                        <ul class="list-group">
+                        {% for reply in user.replies %}
+                             <li class="list-group-item">
+                            <div>
+                                <img style="height:40px; width:40px;" class="img-circle" src="{{ render_group_logo(reply.activity.group) }}">
+                                &nbsp;
+                                <span style="">
+                                    我评论了<a href="{{ url_for('group.show',group_id=reply.activity.group.id) }}">{{ reply.activity.group.name }}</a>的活动
+                                    <a href="{{ url_for('activity.show',activity_id=reply.activity.id) }}">"{{ reply.activity.title }}"</a> </span>
+                            </div>
+                              <p style="margin: 5px 40px; padding-top:5px; border-top:1px solid #eee">
+                                  {{reply.content}}
+                              </p>
+                          </li>
+                         {% endfor %}
+                        </ul>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
         </div>
     </div>
+
 {% endblock %}
 
 {% block javascripts %}

@@ -27,7 +27,7 @@
                     <div class="setting-group pull-left">
                         <label class="col-md-4">已参与社员</label>
                         {% for user in activity.users %}
-                            <img class="img-circle" src="{{ render_user_avatar(user) }}" style="height:50px; width:50px;">
+                            <a href="{{ url_for('user.homepage',user_id=user.id) }}"><img class="img-circle" src="{{ render_user_avatar(user) }}" style="height:50px; width:50px;"></a>
                         {% endfor %}
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                             <div>
                                 <img style="height:40px; width:40px;" class="img-circle" src="{{ render_user_avatar(reply.user) }}">
                                 &nbsp;
-                                <span style="font-weight:bold;font-size:18px;">{{ reply.user.username }}</span>
+                                <span style="font-weight:bold;font-size:18px;"><a href="{{ url_for('user.homepage',user_id=reply.user.id) }}">{{ reply.user.username }}</a> </span>
                             </div>
                               <p style="margin: 5px 40px; padding-top:5px; border-top:1px solid #eee">
                                   {{reply.content}}

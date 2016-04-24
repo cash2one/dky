@@ -55,10 +55,8 @@ class User(db.Model, UserMixin):
 
     """ 随机获得系统头像 """
     def set_avatar_auto(self):
-        files = [x for x in os.listdir(DefaultConfig.LOCAL_AVATAR_DIR)]
+        files = [x for x in os.listdir(DefaultConfig.LOCAL_AVATAR_DIR) if os.path.isfile(x)]
         self.avatar = random.choice(files)
-
-
 
 
     @classmethod
@@ -94,7 +92,6 @@ class User(db.Model, UserMixin):
     def unfollow(self, user):
         if self.is_following(user):
             link = db.session.query(user_followers).filter(user_followers.c.followed_id==user.id, user_followers.c.follower_id == self.id).one()
-            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             print(link.created_at)
             #判断是否为新增粉丝,如果是则用户新增粉丝数-1
             if link.created_at > user.last_check_follower:

@@ -34,6 +34,7 @@ class DefaultConfig(object):
     REPLY_URL_PREFIX = "/reply"
     ADMIN_URL_PREFIX = "/admin"
     PRESIDENT_URL_PREFIX = "/president"
+    SEARCH_URL_PREFIX = "/search"
 
 
 

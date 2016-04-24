@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-8 col-md-offset-2">
+                {% if activities | length > 0 %}
+
+                {% for activity in activities %}
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <img class="img-rounded" src="{{ render_group_logo(activity.group) }}" style="height:40px; width:40px;">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span style="font-weight: bold">{{ activity.group.name }}</span>  发布了活动  <span style="font-weight: bold">“{{ activity.title }}”</span>
+                        </div>
+                        <div class="panel-footer" style="height:50px;">
+                            活动起止时间: {{ activity.start_time }} - {{ activity.end_time }}
+                            <a href="{{ url_for('activity.show', activity_id=activity.id) }}" class="btn btn-primary pull-right">查看活动</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="page-header" style="margin-top:60px;">
+                      <h1>未搜到任何活动 <small>请换一个关键字试试</small></h1>
+                    </div>
+                {% endif %}
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
