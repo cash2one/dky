@@ -5,6 +5,8 @@ from zoo.configs.default import DefaultConfig
 from zoo.user.models import User
 from zoo.group.models import Group
 from zoo.group.forms import NewGroupForm
+from zoo.category.models import Category
+from zoo.utils.access_control import check_message
 
 
 group = Blueprint("group", __name__)
@@ -12,6 +14,7 @@ group = Blueprint("group", __name__)
 
 @group.route("/<int:group_id>")
 @login_required
+@check_message
 def show(group_id):
     group = Group.query.get(group_id)
     return render_template("group/show.html", group=group)
@@ -30,9 +33,9 @@ def admin(group_id):
 @login_required
 def new():
     form = NewGroupForm()
-
+    form.category.choices = [(c.id, c.name) for c in Category.query.all()]
     if form.validate_on_submit():
-        group = Group(name=form.name.data, description=form.description.data, creator=current_user)
+        group = Group(name=form.name.data, description=form.description.data, creator=current_user, category_id=form.category.data)
         group.members.append(current_user)
         group.set_logo_auto()
         group.save()
@@ -167,5 +170,17 @@ def dm(group_id, user_id):
     group.save()
     flash("小组成员删除成功")
     return jsonify(msg="success")
+
+@group.route("/cate/<int:cate_id>")
+@login_required
+def cate(cate_id):
+    if cate_id == 0:
+        categories = Category.query.all()
+        groups = Group.query.all()
+        return render_template("group/groupbycate.html", groups=groups,categories=categories,cate_id=cate_id)
+    else:
+        categories = Category.query.all()
+        groups = Group.query.filter(Group.category_id == cate_id)
+        return render_template("group/groupbycate.html", groups=groups,categories=categories,cate_id=cate_id)
 
 

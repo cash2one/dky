@@ -5,9 +5,9 @@
             <div class="col-md-2 col-md-offset-1">
                 <ul class="list-group">
                     <div class="list-group">
-                      <a href="{{ url_for('group.cate',cate_id=0) }}" class="list-group-item active">所有社团</a>
+                      <a href="{{ url_for('group.cate',cate_id=0) }}" class="list-group-item {% if cate_id==0 %}active{% endif %}">所有社团</a>
                         {% for category in categories  %}
-                            <a href="{{ url_for('group.cate',cate_id=category.id) }}" class="list-group-item">{{ category.name }}</a>
+                            <a href="{{ url_for('group.cate',cate_id=category.id) }}" class="list-group-item {% if category.id == cate_id %}active{% endif %}">{{ category.name }}</a>
                         {% endfor %}
 
                     </div>

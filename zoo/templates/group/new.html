@@ -32,10 +32,17 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <div class="col-md-6">
+                                            {{ form.category(class_='form-control')}}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <div class="col-md-12">
                                             {{ form.description(placeholder=form.description.label.text, rows=6, class="col-md-12", style='resize: none;')}}
                                         </div>
                                     </div>
+
+
                                     {{ form.csrf_token }}
                                 </form>
                                 <button class="btn btn-primary col-md-4 col-md-offset-2 submitBtn" data-form="#new-group-form">创建社团</button>

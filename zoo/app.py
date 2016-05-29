@@ -11,6 +11,7 @@ from zoo.admin.views import admin
 from zoo.president.views import president
 from zoo.search.views import search
 from zoo.user.models import User
+from zoo.category.views import category
 
 
 
@@ -46,6 +47,7 @@ def configure_blueprints(app):
     app.register_blueprint(activity, url_prefix=app.config["ACTIVITY_URL_PREFIX"])
     app.register_blueprint(reply, url_prefix=app.config["REPLY_URL_PREFIX"])
     app.register_blueprint(search, url_prefix=app.config["SEARCH_URL_PREFIX"])
+    app.register_blueprint(category, url_prefix=app.config["CATEGORY_URL_PREFIX"])
 
 def configure_extensions(app):
 

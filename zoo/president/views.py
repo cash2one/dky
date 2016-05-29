@@ -3,6 +3,7 @@ from flask_login import login_required,current_user
 from zoo.utils.access_control import president_required
 from zoo.activity.models import Activity
 from zoo.user.models import User
+from zoo.message.models import Message
 import datetime
 
 
@@ -32,7 +33,9 @@ def member_manage():
 def join_agree(user_id):
     group = current_user.owned_group
     group.join(user_id)
-    flash("小组成员审核通过", "success")
+    message = Message(user_id=user_id, content=group.name+"社团已经同意你的加入申请！")
+    message.save()
+    flash("社团成员审核通过", "success")
     return redirect(url_for("president.verify"))
 
 @president.route("/join/<int:user_id>")

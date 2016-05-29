@@ -25,8 +25,8 @@
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li {% if request.endpoint == 'site.index' %} class="active" {% endif %}><a href="{{ url_for('site.index') }}">最新活动</a></li>
                     <li {% if request.endpoint == 'site.groups' %} class="active" {% endif %}><a href="{{ url_for('site.groups') }}">所有社团</a></li>
+                    <li {% if request.endpoint == 'site.index' %} class="active" {% endif %}><a href="{{ url_for('site.activities') }}">最新活动</a></li>
                 </ul>
                 <form id="search-form" class="navbar-form navbar-left" role="search" action="{{ url_for('search.find') }}" method="POST">
                     <div class="form-group">

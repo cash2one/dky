@@ -5,6 +5,8 @@ from zoo.user.models import User
 from zoo.activity.models import Activity
 from zoo.group.models import Group
 from zoo.group.forms import NewGroupForm
+from zoo.category.models import Category
+from zoo.utils.access_control import check_message
 
 
 site = Blueprint("site", __name__)
@@ -13,21 +15,30 @@ site = Blueprint("site", __name__)
 @site.route("/")
 @login_required
 def index():
+    return redirect(url_for('site.groups'))
+
+
+@site.route("/activities")
+@login_required
+@check_message
+def activities():
     if current_user.role == 1:
         return redirect(url_for('admin.admin_verify'))
     else:
         activities = Activity.query.all()
-        return render_template("site/index.html", activities=activities)
+        return render_template("site/activities.html", activities=activities)
 
 
 @site.route("/groups")
 @login_required
+@check_message
 def groups():
     if current_user.role == 1:
         return redirect(url_for('admin.admin_verify'))
     else:
         groups = Group.query.all()
-        return render_template("site/groups.html", groups=groups)
+        categories = Category.query.all()
+        return render_template("site/groups.html", groups=groups,categories=categories)
 
 
 @site.route("/register", methods=['GET','POST'])
@@ -68,6 +79,7 @@ def login():
                     elif user.role == 3:
                         login_user(user, remember=True)
                         form = NewGroupForm()
+                        form.category.choices = [(c.id, c.name) for c in Category.query.all()]
                         return render_template("group/new.html", form=form)
                     else:
                         flash('作为管理员，您不能以社长身份登陆', 'info')

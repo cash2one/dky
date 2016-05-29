@@ -30,11 +30,21 @@
                             <a href="{{ url_for('user.homepage',user_id=user.id) }}"><img class="img-circle" src="{{ render_user_avatar(user) }}" style="height:50px; width:50px;"></a>
                         {% endfor %}
                     </div>
+                    <div class="setting-group pull-left">
+                        <label class="col-md-4">赞了该活动的人</label>
+                        {% for user in activity.likes.all() %}
+                            <a href="{{ url_for('user.homepage',user_id=user.id) }}"><img class="img-circle" src="{{ render_user_avatar(user) }}" style="height:50px; width:50px;"></a>
+                        {% endfor %}
+                    </div>
                 </div>
               </div>
 
                 <div class="panel-footer" style="height:50px;">
-
+                        {% if not current_user in activity.likes.all() %}
+                        <a href="{{ url_for('activity.like', activity_id=activity.id) }}" class="btn btn-default pull-right"> <i class="fa fa-thumbs-up" aria-hidden="true"></i>赞</a>
+                        {%else%}
+                        <a href="{{ url_for('activity.unlike', activity_id=activity.id) }}" class="btn btn-default pull-right"> <i class="fa fa-thumbs-down" aria-hidden="true"></i>取消赞</a>
+                        {% endif %}
                         {% if not current_user in activity.users %}
                             <a href="{{ url_for('activity.join', activity_id=activity.id) }}" class="btn btn-primary pull-right">参加活动</a>
                         {% else %}

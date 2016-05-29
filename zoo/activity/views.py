@@ -1,12 +1,14 @@
 from flask import Blueprint, abort,render_template,flash,redirect,url_for,request
 from flask_login import login_required,current_user
 from zoo.activity.models import Activity
+from zoo.utils.access_control import check_message
 import datetime
 
 activity = Blueprint("activity", __name__)
 
 @activity.route("/show/<int:activity_id>")
 @login_required
+@check_message
 def show(activity_id):
     activity = Activity.query.get(activity_id)
     if not activity:
@@ -76,3 +78,36 @@ def delete(activity_id):
             activity.delete()
             flash("活动删除成功", "success")
             return redirect(url_for("president.activities"))
+
+@activity.route("/like/<int:activity_id>")
+@login_required
+def like(activity_id):
+    activity = Activity.query.get(activity_id)
+    if not activity:
+        abort(404)
+    else:
+        if current_user in activity.group.members:
+            if current_user in activity.likes:
+                flash("你已经赞过该活动", "success")
+                return redirect(url_for('activity.show', activity_id=activity.id))
+            else:
+                activity.likes.append(current_user)
+                activity.save()
+                return redirect(url_for('activity.show', activity_id=activity.id))
+        else:
+            flash("你还未加入"+ activity.group.name +"小组","error")
+            return redirect(url_for('activity.show', activity_id=activity.id))
+
+@activity.route("/unlike/<int:activity_id>")
+@login_required
+def unlike(activity_id):
+    activity = Activity.query.get(activity_id)
+    if not activity:
+        abort(404)
+    else:
+        if not current_user in activity.likes:
+            return redirect(url_for('activity.show', activity_id=activity.id))
+        else:
+            activity.likes.remove(current_user)
+            activity.save()
+            return redirect(url_for('activity.show', activity_id=activity.id))

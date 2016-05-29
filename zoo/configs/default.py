@@ -35,6 +35,7 @@ class DefaultConfig(object):
     ADMIN_URL_PREFIX = "/admin"
     PRESIDENT_URL_PREFIX = "/president"
     SEARCH_URL_PREFIX = "/search"
+    CATEGORY_URL_PREFIX = "/category"
 
 
 

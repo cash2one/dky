@@ -35,7 +35,7 @@ class User(db.Model, UserMixin):
                                 lazy='dynamic')
 
 
-    rant = db.Column(db.Integer(), default=0)
+    rank = db.Column(db.Integer(), default=0)
 
     @hybrid_property
     def password(self):

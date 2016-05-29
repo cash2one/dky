@@ -21,6 +21,9 @@ class Group(db.Model):
     #banner = db.Column(db.String(200), nullable=False)
     set_logo = db.Column(db.Boolean, default=False, nullable=False)
 
+    category_id = db.Column(db.Integer, db.ForeignKey("categories.id"))
+    category = db.relationship("Category", backref=db.backref("groups", lazy='dynamic'), lazy='joined')
+
     creator_id = db.Column(db.Integer(), db.ForeignKey('users.id'))
     creator = db.relationship("User", backref=db.backref('owned_group',uselist=False, lazy='joined'), lazy='joined')
 

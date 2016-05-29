@@ -19,3 +19,9 @@ activity_users = db.Table(
     db.Column('activity_id',db.Integer(),db.ForeignKey('activities.id')),
     db.Column('user_id',db.Integer(),db.ForeignKey('users.id'))
 )
+
+activity_like = db.Table(
+    'likes',
+    db.Column('activity_id',db.Integer(),db.ForeignKey('activities.id')),
+    db.Column('user_id',db.Integer(),db.ForeignKey('users.id'))
+)

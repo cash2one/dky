@@ -1,6 +1,6 @@
 from zoo.extensions import db
 from zoo.user.models import User
-from zoo.mmrelation.mm_relations import activity_users
+from zoo.mmrelation.mm_relations import activity_users, activity_like
 import datetime
 
 
@@ -29,6 +29,8 @@ class Activity(db.Model):
     group = db.relationship("Group", backref=db.backref("activities", lazy='dynamic'), lazy='joined')
 
     users = db.relationship("User", secondary=activity_users, backref=db.backref("activities", lazy='dynamic'), lazy='dynamic')
+
+    likes = db.relationship("User", secondary=activity_like, backref=db.backref("likes", lazy='dynamic'), lazy='dynamic')
 
     def save(self):
         db.session.add(self)

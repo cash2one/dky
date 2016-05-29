@@ -5,6 +5,7 @@
             <ul class="list-group">
                 <div class="list-group">
                   <a href="{{ url_for('admin.admin_verify') }}" class="list-group-item active">新社团审核</a>
+                    <a href="{{ url_for('admin.category_manage') }}" class="list-group-item">分类管理</a>
                   <a href="{{ url_for('admin.group_manage') }}" class="list-group-item">社团管理</a>
                   <a href="{{ url_for('admin.activities_manage') }}" class="list-group-item">活动管理</a>
                   <a href="#" class="list-group-item">用户管理</a>
@@ -17,6 +18,7 @@
                     <tr>
                         <th>ID</th>
                         <th>社团名称</th>
+                        <th>社团分类</th>
                         <th>社团描述</th>
                         <th>创建者</th>
                         <th>创建时间</th>
@@ -36,6 +38,7 @@
                             <tr>
                                 <th>{{ group.id }}</th>
                                 <td>{{ group.name }}</td>
+                                <td>{{ group.category.name }}</td>
                                 <td>{{ group.description }}</td>
                                 <td>{{ group.creator.username }}</td>
                                 <td>{{ group.created_at }}</td>
