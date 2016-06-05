@@ -176,11 +176,11 @@ def dm(group_id, user_id):
 def cate(cate_id):
     if cate_id == 0:
         categories = Category.query.all()
-        groups = Group.query.all()
+        groups = Group.query.filter(Group.active == 1)
         return render_template("group/groupbycate.html", groups=groups,categories=categories,cate_id=cate_id)
     else:
         categories = Category.query.all()
-        groups = Group.query.filter(Group.category_id == cate_id)
+        groups = Group.query.filter(Group.category_id == cate_id, Group.active == 1)
         return render_template("group/groupbycate.html", groups=groups,categories=categories,cate_id=cate_id)
 
 

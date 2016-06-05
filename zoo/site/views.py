@@ -36,7 +36,7 @@ def groups():
     if current_user.role == 1:
         return redirect(url_for('admin.admin_verify'))
     else:
-        groups = Group.query.all()
+        groups = Group.query.filter(Group.active == 1)
         categories = Category.query.all()
         return render_template("site/groups.html", groups=groups,categories=categories)
 

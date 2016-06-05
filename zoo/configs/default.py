@@ -11,8 +11,8 @@ class DefaultConfig(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 
-    TITLE = "DKY社团活动"
-    SITE_NAME = "DKY社团活动发布系统"
+    TITLE = "校园社团活动管理系统"
+    SITE_NAME = "校园社团活动管理系统"
     LOCAL_AVATAR_DIR = "./zoo/static/assets/avatar/"
     LOCAL_AVATAR_DIR_1 = "./zoo/static/assets/avatar/upload/"
     LOCAL_AVATAR_URL = "/static/assets/avatar/"

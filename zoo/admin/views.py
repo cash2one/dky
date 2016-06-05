@@ -6,6 +6,8 @@ from zoo.activity.models import Activity
 from zoo.category.models import Category
 from zoo.extensions import db
 from zoo.message.models import Message
+from zoo.user.models import User
+from sqlalchemy import or_
 
 
 admin = Blueprint("admin", __name__)
@@ -65,5 +67,12 @@ def activities_manage():
 def category_manage():
     categories = Category.query.all()
     return render_template('admin/category.html', categories=categories)
+
+@admin.route("/user/manage", methods=['GET'])
+@login_required
+@admin_required
+def user_manage():
+    users = User.query.filter(or_(User.role == 2, User.role == 3))
+    return render_template('admin/user.html', users=users)
 
 
